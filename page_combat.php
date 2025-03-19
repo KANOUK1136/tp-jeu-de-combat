@@ -1,92 +1,73 @@
 <?php
-    function tour_vitesse_joueur1($bdd_vitesse_j1){
-        $vitesse_joueur1 = rand(0,$bdd_vitesse_j1);
-        return $vitesse_joueur1;
-    }
+    $personnage_id = $_POST['personnage_id'];
 
-    function tour_vitesse_joueur2($bdd_vitesse_j2){
-        $vitesse_joueur2 = rand(0,$bdd_vitesse_j2);
-        return $vitesse_joueur2;
-    }
+    if (isset($personnage_id)) {
+        $host = "127.0.0.1";
+        $dbname = "base_jeu_de_combat";
+        $username_db = "root";
+        $password_db = "";
 
-    function boxeur_attaque($puissance_initiateur){
-        $degats = rand(0,$puissance_initiateur);
-        return $degats;
+        try {
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username_db, $password_db, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]);
+        } catch (PDOException $e) {
+            die("Erreur de connexion : " . $e->getMessage());
+        }
+
+        $sql = "SELECT id, pseudo FROM table_personnage WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $personnage_id]);
+        $personnage = $stmt->fetch();
+        
+        if (!$personnage) {
+            die("Personnage non trouvé.");
+        }
+        $image_path = "images/" . htmlspecialchars($personnage['id']);
     }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>FIGHT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/page_combat.css" />
     <?php include 'banniere.php'; ?>
+</head>
 
-  </head>
+<body>
+    <br><br><br>
+    <div class="image-container">
+        <!-- Display the selected character's image -->
+        <img src="<?= $image_path ?>" alt="<?= htmlspecialchars($personnage['pseudo']) ?>">
+        <img src="images/vs.png" alt="VS">
+        <!-- Placeholder image for the opponent -->
+        <img src="images/iron_mike.png" alt="Opponent">
+    </div>
 
-  <body>
-      <link rel="stylesheet" type="text/css" href="css/page_combat.css" >
-      <div class="row">
-            <div class="column">
-                <img src="images/iron_mike.png" alt="Jouer1_perso" style="width:50%">
-                
-            </div>
+    <h2><?= htmlspecialchars($personnage['pseudo']) ?> vs Opponent</h2>
 
-            <div class="column">
-                <img src="images/vs.png" alt="Vs_logo" style="width:50%">
-            </div>
-        
-            <div class="column">
-                <img src="images/jotaro_kujo.png" alt="Joueur2_perso" style="width:50%">
-            </div>
-        </div>
-
-        <?php
-        $local_host = "127.0.0.1"; 
-        $nom_bdd= "base";
-        $username_bdd = "root"; 
-        $password_bdd = ""; 
-
-        /*
-        // Initialisation de la connexion SQL
-        $connexion = new mysqli($local_host, $username_bdd, $password_bdd, $nom_bdd);
-
-        $stmt = $pdo->prepare("SELECT nom FROM utilisateurs WHERE nom = :nom");
-        $stmt->execute(['nom' => $nom]);
-
-        
-        // Recuperation des vitesses, pv et prenom/nom du joueurs 1 et 2
-        $vitesse_joueur1 = 
-
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-            }
-            
-        $sql = "SELECT id, , vitesse, puissance FROM table_personnage";
-        $result = $conn->query($sql);
-            
-        if ($result->num_rows > 0) {
-
-
-            while($row = $result->fetch_assoc()) {
-                    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
-            }
+    <?php
+        // Example of the combat functions being used
+        function tour_vitesse_joueur1($bdd_vitesse_j1) {
+            return rand(0, $bdd_vitesse_j1);
         }
-        while(){
 
+        function tour_vitesse_joueur2($bdd_vitesse_j2) {
+            return rand(0, $bdd_vitesse_j2);
         }
-            */
 
-        // Boucle des tours : condition de sorties (un des deux joueurs < 0)
-        // Qui attaque au debut dans ce tour ?
+        function boxeur_attaque($puissance_initiateur) {
+            return rand(0, $puissance_initiateur);
+        }
 
-
-        ?>
-
-  </body>
+        // Example of game logic or loop here
+        // Use the above functions to simulate turns and calculate damage
+    ?>
+</body>
 
 </html>

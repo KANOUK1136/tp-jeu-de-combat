@@ -1,19 +1,9 @@
 
-
-*{
-    box-sizing: border-box;
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
-  
-.column {
-    float: left;
-    width: 33.33%;
-    padding: 5px;
-    justify-content: center; 
-}
-  
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-    
+.image-container img {
+    width: 10%;
 }
