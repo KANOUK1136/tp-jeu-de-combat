@@ -80,55 +80,64 @@ $puissance_j2 = 3;
 $vie_combat_j1 = $personnage['pv'];
 $vie_combat_j2 = 19;
 
+$i = 0;
+echo nl2br("Debut du combat : $pseudo_j1 vs $pseudo_j2\n\r\n\r");
+
 while(True){
     // Qui attaque au debut dans ce tour ?
      $vitesse_j1_tour = tour_vitesse_joueur1($vitesse_j1);
      $vitesse_j2_tour = tour_vitesse_joueur2($vitesse_j2);
 
+     $i = $i + 1;
+
+     echo("Tour : $i\n");
+     echo nl2br("$pseudo_j2 attaque $pseudo_j1\n\r");
      // Tour si J2 est plus rapide
+     echo nl2br("$pseudo_j2 attaque $pseudo_j1\n");
+
      if ($vitesse_j2_tour > $vitesse_j1_tour){
 
-        echo("$pseudo_j1 attaque $pseudo_j1");
+        echo nl2br("$pseudo_j2 attaque $pseudo_j1\n");
 
         $degats_subis_j1 = boxeur_attaque($puissance_j2);
         $vie_combat_j1 = $vie_combat_j1 - $degats_subis_j1;
 
         if ($vie_combat_j1 <= 0) { 
-            echo("$pseudo_j1  à perdu !!");
-            echo("Le gagnant est $pseudo_j2");
+            echo nl2br("$pseudo_j1  à perdu !!\n");
+            echo nl2br("Le gagnant est $pseudo_j2\n\r\n\r");
             break;
          }
 
-         echo("$pseudo_j1 attaque $pseudo_j2");
+         echo nl2br("$pseudo_j1 attaque $pseudo_j2\n");
          $degats_subis_j2 = boxeur_attaque($puissance_j1);
          $vie_combat_j2 = $vie_combat_j2 - $degats_subis_j2;
         
          if ($vie_combat_j2 <= 0 ){ 
-            echo("$pseudo_j2 à perdu !!");
-            echo("Le gagnant est $pseudo_j1 ");
+            echo nl2br("$pseudo_j2 à perdu !!\n");
+            echo nl2br("Le gagnant est $pseudo_j1\n\r\n\r");
             break;
          }
     }
 
     // Tour si J1 est plus rapide
      else {
-        echo("$pseudo_j1  attaque $pseudo_j2");
+        echo nl2br("$pseudo_j1  attaque $pseudo_j2\n");
         $degats_subis_j2 = boxeur_attaque($puissance_j1);
         $vie_combat_j2 = $vie_combat_j1 - $degats_subis_j2;
 
         if ($vie_combat_j2 <= 0 ){ 
-            echo("$pseudo_j2 à perdu !!");
-            echo("Le gagnant est $pseudo_j1 ");
+            echo nl2br("$pseudo_j2 à perdu !!\n");
+            echo nl2br("Le gagnant est $pseudo_j1\n\r\n\r");
             break;
          }
 
-         echo("$pseudo_j2 attaque $pseudo_j1 ") ;
+         echo nl2br("$pseudo_j2 attaque $pseudo_j1\n") ;
          $degats_subis_j1 = boxeur_attaque($puissance_j2);
          $vie_combat_j1 = $vie_combat_j1 - $degats_subis_j1;
         
          if ($vie_combat_j1 <= 0 ){ 
-            echo("$pseudo_j1  à perdu !!") ;
-            echo("Le gagnant est $pseudo_j2") ;
+            echo nl2br("$pseudo_j1  à perdu !!\n") ;
+            echo nl2br("Le gagnant est $pseudo_j2\n\r\n\r") ;
             break;
          }
      }
