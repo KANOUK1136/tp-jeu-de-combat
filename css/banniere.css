@@ -13,5 +13,5 @@
 .banner img {
   max-height: 100%; 
   max-width: 100%; 
-  object-fit: contain; /* Ensures the image fits well */
+  object-fit: contain;
 }
