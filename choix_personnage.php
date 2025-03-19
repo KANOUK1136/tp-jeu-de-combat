@@ -32,7 +32,7 @@
 <body> 
     <link rel="stylesheet" type="text/css" href="css/choix_des_personnages.css">
     <h1>Choix des personnages</h1>  
-    <form method="post" action="valider_personnage.php">
+    <form method="post" action="page_combat.php">
         <div class="personnages-container">
             <?php foreach ($personnages as $personnage): ?>
                 <label class="personnage">
@@ -48,7 +48,7 @@
                 </label>
             <?php endforeach; ?>
         </div>
-
+        <br>
         <button type="submit" class="btn btn-primary">Valider</button>
     </form>
 </body>
