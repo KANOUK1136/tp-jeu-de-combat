@@ -80,27 +80,39 @@
         $genre = isset($_POST["gender"]) ? $_POST["gender"] : "";
 
         if (!empty($prenom) && !empty($nom) && !empty($password) && !empty($email) && !empty($genre)) {
-            $pseudo = strtolower(substr($prenom, 0, 1) . $nom);
-            $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+            // Vérification si l'email est déjà utilisé
+            $checkEmail = $pdo->prepare("SELECT id FROM table_utilisateurs WHERE email = :email");
+            $checkEmail->execute([":email" => $email]);
 
-            $sql = "INSERT INTO table_utilisateurs (pseudo, nom, prenom, mdp_hash, email, genre) 
-                    VALUES (:pseudo, :nom, :prenom, :mdp_hash, :email, :genre)";
+            if ($checkEmail->rowCount() > 0) {
+                echo "Erreur : Cet email est deja utilise.";
+            } else {
+                $pseudo = strtolower(substr($prenom, 0, 1) . $nom);
+                $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ":pseudo" => $pseudo,
-                ":nom" => $nom,
-                ":prenom" => $prenom,
-                ":mdp_hash" => $password_hashed,
-                ":email" => $email,
-                ":genre" => $genre
-            ]);
+                $sql = "INSERT INTO table_utilisateurs (pseudo, nom, prenom, mdp_hash, email, genre) 
+                        VALUES (:pseudo, :nom, :prenom, :mdp_hash, :email, :genre)";
 
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    ":pseudo" => $pseudo,
+                    ":nom" => $nom,
+                    ":prenom" => $prenom,
+                    ":mdp_hash" => $password_hashed,
+                    ":email" => $email,
+                    ":genre" => $genre
+                ]);
+
+                echo "Inscription réussie !";
+                header("Location: choix_personnage.php");
+                exit();
+            }
         } else {
             echo "Tous les champs sont obligatoires.";
         }
     }
 ?>
+
 </form>
 </body>
 </html>
