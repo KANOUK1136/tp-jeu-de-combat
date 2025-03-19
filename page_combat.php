@@ -42,17 +42,14 @@
 <body>
     <br><br><br>
     <div class="image-container">
-        <!-- Display the selected character's image -->
         <img src="<?= $image_path ?>" alt="<?= htmlspecialchars($personnage['pseudo']) ?>">
         <img src="images/vs.png" alt="VS">
-        <!-- Placeholder image for the opponent -->
-        <img src="images/iron_mike.png" alt="Opponent">
+        <img src="images/2.png" alt="Opponent">
     </div>
 
     <h2><?= htmlspecialchars($personnage['pseudo']) ?> vs Opponent</h2>
 
     <?php
-        // Example of the combat functions being used
         function tour_vitesse_joueur1($bdd_vitesse_j1) {
             return rand(0, $bdd_vitesse_j1);
         }
@@ -65,8 +62,6 @@
             return rand(0, $puissance_initiateur);
         }
 
-        // Example of game logic or loop here
-        // Use the above functions to simulate turns and calculate damage
     ?>
 </body>
 
