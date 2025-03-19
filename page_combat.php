@@ -24,7 +24,7 @@
         if (!$personnage) {
             die("Personnage non trouvé.");
         }
-        $image_path = "images/" . htmlspecialchars($personnage['id']);
+        $image_path = "images/" . htmlspecialchars($personnage['id']) . ".png";
     }
 ?>
 
