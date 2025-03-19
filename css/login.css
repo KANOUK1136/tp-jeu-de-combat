@@ -39,7 +39,7 @@ label {
 }
 
 input {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -52,11 +52,18 @@ input {
     margin-bottom: 15px;
 }
 
-.button {
+button {
+    width: 100%;
     background-color: #c41111;
     color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background-color: #5c0202;
+    background-color: #b30000;
 }
